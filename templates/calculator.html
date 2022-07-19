@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>计算器</title>
+    <link rel="stylesheet" href="../static/calculator.css">
+</head>
+
+<body>
+    <h1>事计算器捏</h1>
+    <div class="line-edit">
+        <input type="text" id="equation" readonly="readonly">
+        <input type="text" id="result" readonly="readonly">
+    </div>
+    <br>
+    <div class="functions">
+        <input type="button" value="平方" class="buttons" id="square">
+        <input type="button" value="+/-" class="buttons" id="+/-">
+        <input type="button" value="CE" class="buttons" id="CE">
+        <input type="button" value="退格" class="buttons" id="backspace">
+    </div>
+    <script src="../static/calculator.js"></script> <!--逻辑实现-->
+    <script src="../static/keyboard_listener.js"></script> <!--键盘事件监听-->
+</body>
+
+</html>

@@ -1,0 +1,70 @@
+* {
+    margin: 0;
+    padding: 0%;
+    background-color: beige;
+}
+
+body {
+    text-align: center;
+}
+
+p {
+    position: absolute;
+    right: 450px;
+}
+
+.line-edit {
+    width: 290px;
+    height: 80px;
+    margin: 60px auto 5px auto;
+    font-size: 0px;
+}
+
+.line-edit input {
+    margin: 0%;
+    border-radius: 30px;
+    cursor: not-allowed;
+}
+
+.line-edit #equation {
+    width: 290px;
+    height: 30px;
+    border: none;
+    border-radius: 0%;
+    font-size: 20px;
+    color: #d0d0d1;
+}
+
+.line-edit #result {
+    width: 290px;
+    height: 50px;
+    border: none;
+    border-radius: 0%;
+    font-size: 45px;
+}
+
+.functions {
+    font-size: 0%;
+}
+
+input {
+    width: 70px;
+    height: 45px;
+    margin: 2px;
+    box-shadow: 2px 2px 2px gray;
+    background-color: #b49068;
+    border: none;
+    border-radius: 25px;
+    outline: none;
+    cursor: pointer;
+}
+
+.buttons:hover {
+    background-color: aqua;
+}
+
+.homo {
+    width: 250px;
+    height: 250px;
+    border: none;
+}
