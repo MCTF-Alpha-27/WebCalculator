@@ -1,8 +1,11 @@
-// 逻辑实现
+// ============================================================
+// 计算器前端逻辑 - 通过封装的 API 模块与后端通信
+// ============================================================
+
 var symbol = [
     "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
     "*", "+", "=", "-", ".", "/"
-] // 符号定义
+]
 
 // 生成数字面板
 for (let i = 0; i < symbol.length / 4; i++) {
@@ -48,24 +51,43 @@ for (let i = 0; i < symbol.length / 4; i++) {
     document.body.appendChild(div)
 }
 
+// 特殊结果图片映射
+const SPECIAL_RESULTS = {
+    "114514": "homo.jpg",
+    "1919810": "homo.jpg"
+};
+
+// 显示特殊结果图片
+function showSpecialImage(result) {
+    const imageName = SPECIAL_RESULTS[String(result)];
+    if (imageName) {
+        // 移除已存在的特殊图片
+        const existing = document.querySelector(".special-image");
+        if (existing) existing.remove();
+        
+        const img = document.createElement("img");
+        img.src = "/static/" + imageName;
+        img.className = "special-image";
+        img.style.marginTop = "20px";
+        img.style.maxWidth = "300px";
+        document.body.appendChild(img);
+    }
+}
+
 // 按下等于号的时候就计算出结果并显示在result框中，12是等于号的id
 var equal_button = document.getElementById("12")
-equal_button.onclick = () => {
-    var results
-    try {
-        if (equation.value == "" || equation.value.includes("=")) { // 如果未输入算式或算式中已经有等于号就返回
-            return
-        }
-        results = eval(equation.value)
-        if (!results | 0 === results) {
-            results = results.toFixed(2)
-        }
-    } catch (error) {
-        alert(error)
+equal_button.onclick = async () => {
+    if (equation.value == "" || equation.value.includes("=")) { // 如果未输入算式或算式中已经有等于号就返回
         return
     }
-    equation.value += "="
-    result.value = results
+    try {
+        const results = await API.calculate(equation.value)
+        equation.value += "="
+        result.value = results
+        showSpecialImage(results)
+    } catch (error) {
+        alert(error.message)
+    }
 }
 
 // 清零功能
@@ -84,10 +106,18 @@ backspace_button.onclick = () => {
     equation.value = backed
 }
 
-// 平方功能
+// 平方功能 - 通过后端 API 计算
 var square_button = document.getElementById("square")
-square_button.onclick = () => {
-    result.value = Math.pow(equation.value, 2)
+square_button.onclick = async () => {
+    if (equation.value == "" || equation.value.includes("=")) {
+        return
+    }
+    try {
+        const results = await API.calculate(equation.value + "**2")
+        result.value = results
+    } catch (error) {
+        alert(error.message)
+    }
 }
 
 // 符号变换功能

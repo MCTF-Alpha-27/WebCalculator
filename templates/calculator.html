@@ -1,19 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>计算器</title>
-    <link rel="stylesheet" href="../static/calculator.css">
+    <title>Flask 计算器</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='calculator.css') }}">
 </head>
 
 <body>
-    <h1>事计算器捏</h1>
+    <h1>Flask 计算器</h1>
     <div class="line-edit">
-        <input type="text" id="equation" readonly="readonly">
-        <input type="text" id="result" readonly="readonly">
+        <input type="text" id="equation" readonly="readonly" placeholder="输入表达式...">
+        <input type="text" id="result" readonly="readonly" placeholder="0">
     </div>
     <br>
     <div class="functions">
@@ -22,8 +22,9 @@
         <input type="button" value="CE" class="buttons" id="CE">
         <input type="button" value="退格" class="buttons" id="backspace">
     </div>
-    <script src="../static/calculator.js"></script> <!--逻辑实现-->
-    <script src="../static/keyboard_listener.js"></script> <!--键盘事件监听-->
+    <script src="{{ url_for('static', filename='api.js') }}"></script>
+    <script src="{{ url_for('static', filename='calculator.js') }}"></script>
+    <script src="{{ url_for('static', filename='keyboard_listener.js') }}"></script>
 </body>
 
 </html>

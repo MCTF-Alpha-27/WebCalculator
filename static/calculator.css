@@ -62,9 +62,3 @@ input {
 .buttons:hover {
     background-color: aqua;
 }
-
-.homo {
-    width: 250px;
-    height: 250px;
-    border: none;
-}
