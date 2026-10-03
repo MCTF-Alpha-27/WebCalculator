@@ -9,9 +9,9 @@ var symbol = [
 
 // 生成数字面板
 for (let i = 0; i < symbol.length / 4; i++) {
-    var div = document.createElement("div")
+    const div = document.createElement("div")
     for (let j = 0; j < symbol.length / 4; j++) {
-        var input = document.createElement("input")
+        const input = document.createElement("input")
         input.type = "button"
         input.className = "buttons"
         input.value = symbol[i * 4 + j]
@@ -26,15 +26,7 @@ for (let i = 0; i < symbol.length / 4; i++) {
         }
         // 修正加减乘除键盘
         if (input.id == 10 || input.id == 11 || input.id == 13 || input.id == 15) {
-            input.onclick = function () {
-                if (result.value != 0) { // 如果结果不为0，按下任意运算符按钮后将计算结果作为算式中的第一个数
-                    equation.value = result.value
-                    result.value = ""
-                }
-                if (!isNaN(parseFloat(equation.value.substring(equation.value.length - 1))) && isFinite(equation.value.substring(equation.value.length - 1))) { // 确保算式中最后一位不是运算符才能输入运算符
-                    equation.value += this.value
-                }
-            }
+            input.onclick = () => handleOperator(input.value)
         }
         // 小数点修正
         if (input.id == 14) {
@@ -51,6 +43,19 @@ for (let i = 0; i < symbol.length / 4; i++) {
     document.body.appendChild(div)
 }
 
+// 统一处理运算符输入
+function handleOperator(operator) {
+    // 如果有前一个计算结果，在此基础上继续计算
+    if (result.value !== "" && result.value !== "0") {
+        equation.value = result.value
+        result.value = ""
+    }
+    // 确保算式中最后一位是数字才能输入运算符
+    if (!isNaN(parseFloat(equation.value.substring(equation.value.length - 1))) && isFinite(equation.value.substring(equation.value.length - 1))) {
+        equation.value += operator
+    }
+}
+
 // 特殊结果图片映射
 const SPECIAL_RESULTS = {
     "114514": "homo.jpg",
@@ -59,12 +64,12 @@ const SPECIAL_RESULTS = {
 
 // 显示特殊结果图片
 function showSpecialImage(result) {
+    // 移除已存在的特殊图片
+    const existing = document.querySelector(".special-image");
+    if (existing) existing.remove();
+    
     const imageName = SPECIAL_RESULTS[String(result)];
     if (imageName) {
-        // 移除已存在的特殊图片
-        const existing = document.querySelector(".special-image");
-        if (existing) existing.remove();
-        
         const img = document.createElement("img");
         img.src = "/static/" + imageName;
         img.className = "special-image";

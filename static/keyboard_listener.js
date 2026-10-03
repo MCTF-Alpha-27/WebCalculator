@@ -33,24 +33,9 @@ document.body.onkeydown = async (e) => {
         equation.value = backed
     }
 
-    // 运算符号键
-    // 确保算式中最后一位不是运算符才能输入运算符
-    if (!isNaN(parseFloat(equation.value.substring(equation.value.length - 1))) && isFinite(equation.value.substring(equation.value.length - 1))) {
-        if (e.key == "+") {
-            equation.value += "+"
-        }
-    
-        if (e.key == "-") {
-            equation.value += "-"
-        }
-    
-        if (e.key == "*") {
-            equation.value += "*"
-        }
-    
-        if (e.key == "/") {
-            equation.value += "/"
-        }
+    // 运算符号键 - 使用统一的运算符处理函数
+    if (e.key == "+" || e.key == "-" || e.key == "*" || e.key == "/") {
+        handleOperator(e.key)
     }
 
     if (e.key == ".") {

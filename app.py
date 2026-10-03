@@ -1,10 +1,12 @@
 """
-Flask Calculator - 真正的 Flask 项目
 后端负责计算逻辑，前端通过 API 与后端通信
 """
 
 from flask import Flask, render_template, jsonify
 from api import api_bp
+
+
+__version__ = "2.0.1"
 
 
 def create_app():
@@ -19,7 +21,7 @@ def create_app():
     @app.route("/")
     def index():
         """渲染计算器主页"""
-        return render_template("calculator.html")
+        return render_template("calculator.html", version=__version__)
 
     # 错误处理
     @app.errorhandler(404)
